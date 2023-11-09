@@ -1,0 +1,64 @@
+<%- include('../partials/head');%>
+
+    <body>
+        <%- include('../partials/navbar_p');%>
+            <div class="global-container">
+                <div class="container w-75 bg-muted mt-3 rounded shadow mb-5">
+                    <div class="row aling-items-stretch">
+                        <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+                        </div>
+                        <div class="col bg-white p-5 rounded-end">
+                            <div class="text-center">
+                                <img src="assets/logo.png" height="65" width="65" alt="">
+                            </div>
+                            <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+                            <form action="#">
+                                <div class="mb-4">
+                                    <label calls="form-label">Usuario</label>
+                                    <input type="text" class="form-control" name="User" id="textLogin">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="password" calls="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" id="textPassword">
+                                </div>
+                                <div class="d-grid">
+                                    <button type="button" class="btn btn-primary" onclick="makeLogin()">Iniciar Sesión</button>
+                                </div>
+                                <div class="my-3">
+                                    <span>No tienes cuenta? <a href="/register">Registrate</a></span><br>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script src="https://releases.jquery.com/git/jquery-3.x-git.js"></script>
+            <script>
+                function makeLogin() {
+                    credenciales = {};
+                    credenciales.login = document.getElementById("textLogin").value;
+                    credenciales.password = document.getElementById("textPassword").value;
+                    axios.post("http://localhost:5000/login", credenciales)
+                        .then((response) => {
+                            console.log(response.data.token);
+                            sessionStorage.setItem("namet", response.data.name);
+                            sessionStorage.setItem("emailt", response.data.email);
+                            sessionStorage.setItem("tToken", response.data.token);
+                            console.log(credenciales);
+                            window.location.href = "/";
+                        })
+                        .catch((error) => {
+                            $("#modalError").modal('show');
+                            alert("Usuario o Contraseña no validas");
+                            console.log(error);
+                        });
+                };
+            </script>
+            <%- include('../partials/footer_p');%>
+    </body>
+
+    </html>

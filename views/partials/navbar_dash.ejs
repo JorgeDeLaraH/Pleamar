@@ -1,0 +1,70 @@
+<!--<div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-light bg-light border-3 border-bottom border-muted">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="assets/logo.png" height="65" width="65" alt=""></a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="MenuNavegacion" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/profile">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Cerrar Sesión</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-md border-3 border-bottom border-muted" style="background-color: #023859;">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="assets/logo.png" height="65" width="65" alt=""></a>
+        </div>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="MenuNavegacion" class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><div class="form-check form-switch mx-4">
+                        <input
+                          class="form-check-input p-2"
+                          type="checkbox"
+                          role="switch"
+                          id="flexSwitchCheckChecked"
+                          checked
+                          onclick="myFunction()"
+                        /></li>
+                    <li class="nav-item"><a type="button" class="nav-link text-white" href="/profile">Perfil</a>
+                    <li class="nav-item"><a type="button" class="nav-link text-white" href="/profile"><img src="assets/avatar.png" width="50" height="50" alt=""></li></a>
+                    <li class="nav-item"><a type="button" class="nav-link text-white" onclick="logout()">Cerrar sesión</a>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    function myFunction() {
+    var element = document.body;
+    element.dataset.bsTheme =
+      element.dataset.bsTheme == "light" ? "dark" : "light";
+  }
+</script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"
+></script>
+<script>
+    //
+    function logout() {
+        request = {}
+        request.token = sessionStorage.removeItem('tToken');
+        window.location.href = "/login";
+    }
+</script>

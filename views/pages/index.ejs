@@ -1,0 +1,102 @@
+<%- include('../partials/head');%>
+
+    <body data-bs-theme="light" onload="mostrarCards()">
+        <%- include('../partials/navbar_dash');%>
+        <div class="container">
+            <form class="d-flex m-3 col" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <a class="btn btn-primary" type="submit">Buscar</a>
+            </form>
+        </div>
+
+            <div class="container">
+                <h2 class="title">Mis Videos</h2>
+                <div class="row" id="card">
+
+                </div>
+            </div>
+            <%- include('../partials/footer_d');%>
+                <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script src="https://releases.jquery.com/git/jquery-3.x-git.js"></script>
+                <script>
+                    function checkToken() {
+                        console.log("Hola desde check");
+                        request = {};
+                        request.token = sessionStorage.getItem('tToken');
+                        axios.post("http://localhost:5000/auth", request)
+                            .then((response) => {
+                                console.log("Post call");
+                            })
+                            .catch((error) => {
+                                alert("Sesión expirada");
+                                console.log(error);
+                                window.location.href = "/principal";
+                            })
+                    }
+                    checkToken();
+
+                    function mostrarCards() {
+                        axios.get("http://localhost:5000/index")
+                            .then((response) => {
+
+                                divcarta = document.getElementById("card");
+
+                                for (i = 0; i < response.data.length; i++) {
+                                    var col = document.createElement('div');
+                                    col.className = "col-md-4 col-sm-6";
+
+                                    var cardiv = document.createElement('div');
+                                    cardiv.className = "card rounded rounded-5";
+
+                                    var cartaImg = document.createElement("img");
+                                    cartaImg.className = "card-img-top";
+                                    cartaImg.src = response.data[i].urlimg;
+
+                                    var divbody = document.createElement("div");
+                                    divbody.style = "width: 100%;";
+                                    divbody.className = "card-body text-center bg-light text-dark rounded rounded-5";
+                                    cardiv.style = "";
+
+                                    var h5 = document.createElement("h5");
+                                    h5.className = "card-title text-center";
+                                    h5.textContent = response.data[i].Nombre;
+
+                                    var p = document.createElement('p');
+                                    p.className = "card-text text-center";
+                                    p.textContent = response.data[i].Descripcion;
+
+                                    var a = document.createElement('a');
+                                    a.textContent = "Ver ahora";
+                                    /*
+                                    a.href = response.data[i].url;*/
+                                    a.href="/video";
+                                    a.onclick=atrapar(response.data[i].Nombre,response.data[i].url,response.data[i].Descripcion)
+                                    a.className = "btn btn-primary text-center bg-(var(--tercero))";
+                                    var hr = document.createElement('hr');
+                                    divcarta.appendChild(col);
+                                    col.appendChild(cardiv);
+                                    divbody.appendChild(cartaImg);
+                                    cartaImg.appendChild(hr);
+                                    cardiv.appendChild(divbody);
+                                    divbody.appendChild(h5);
+                                    divbody.appendChild(p);
+                                    divbody.appendChild(a);
+                                }
+
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                    function atrapar(name,url,desc){
+                        sessionStorage.setItem("url_v", url);
+                        sessionStorage.setItem("des_v", desc);
+                        sessionStorage.setItem("name_v", name);
+                    }
+                </script>
+
+    </body>
+
+    </html>

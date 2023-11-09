@@ -1,0 +1,73 @@
+<%- include('../partials/head');%>
+        
+<body onload="show()">
+    <%- include('../partials/navbar_dash');%>
+    <div class="container">
+        <div class="navbar ">
+            <form class="d-flex m-3 col" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </form>
+        </div>
+        <div class="row">
+            
+        <div class="row">
+            <div class="col d-flex justify-content-center align-content-center">
+                <iframe class="rounded rounded-3 w-100" height="540px" id="img-url"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="title" id="titulo">
+                        </h3>
+                    </div>
+                    <div class="body m-5">
+                        <p class="card-text" id="description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function show(){
+            var nombre=document.getElementById("titulo");
+            var des=document.getElementById("description");
+            var img=document.getElementById("img-url");
+
+            var name=sessionStorage.getItem('name_v')
+            var desc=sessionStorage.getItem('des_v')
+            var url=sessionStorage.getItem('url_v')
+
+            console.log(desc);
+            nombre.textContent=name;
+            des.textContent=desc;
+            img.src=url;
+
+
+        }
+        function clearCache(){
+            sessionStorage.removeItem('name_v');
+            sessionStorage.removeItem('des_v');
+            sessionStorage.removeItem('url_v');
+            console.log(sessionStorage.getItem('name_v'))
+        }
+        
+    </script>
+    <script>
+        function myFunction() {
+        var element = document.body;
+        element.dataset.bsTheme =
+          element.dataset.bsTheme == "light" ? "dark" : "light";
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <%- include('../partials/footer_d');%>
+</body>
